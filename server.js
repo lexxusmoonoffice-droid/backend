@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const initHeroSection = require("./utils/initHeroSection");
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 
 // Connect to MongoDB
 connectDB();
+initHeroSection();
 
 // Middleware
 app.use(cors({
@@ -25,6 +27,7 @@ app.use("/api/blogs", require("./routes/blogRoutes"));
 app.use("/api/contacts", require("./routes/contactRoutes"));
 app.use("/api/comments", require("./routes/commentRoutes"));
 app.use("/api/upload", require("./routes/uploadRoutes"));
+app.use("/api/hero", require("./routes/heroRoutes"));
 
 // Health check
 app.get("/api/health", (req, res) => {
