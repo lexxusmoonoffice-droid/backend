@@ -14,7 +14,12 @@ initHeroSection();
 
 // Middleware
 app.use(cors({
-  origin: true,
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://lexxusmoon.vercel.app",
+    "https://lexxusmoon-admin.vercel.app",
+  ],
   credentials: true,
 }));
 app.use(express.json({ limit: "10mb" }));
