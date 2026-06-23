@@ -8,10 +8,6 @@ dotenv.config();
 
 const app = express();
 
-// Connect to MongoDB
-connectDB();
-initHeroSection();
-
 // Middleware
 // ⚠️ TEMPORARY: CORS fully open (allows every origin) so no CORS errors occur in
 // deployment. This is INSECURE — restore the restricted allowlist below before
@@ -47,6 +43,17 @@ app.get("/api/health", (req, res) => {
 app.use(require("./middleware/errorHandler"));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    await initHeroSection();
+  } catch (err) {
+    console.error("Startup DB error:", err.message);
+  }
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+};
+
+startServer();
