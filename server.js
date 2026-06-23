@@ -13,15 +13,19 @@ connectDB();
 initHeroSection();
 
 // Middleware
-app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "https://lexxusmoon.vercel.app",
-    "https://lexxusmoon-admin.vercel.app",
-  ],
-  credentials: true,
-}));
+// ⚠️ TEMPORARY: CORS fully open (allows every origin) so no CORS errors occur in
+// deployment. This is INSECURE — restore the restricted allowlist below before
+// hardening security for production.
+app.use(cors({ origin: true, credentials: true }));
+// app.use(cors({
+//   origin: [
+//     "http://localhost:3000",
+//     "http://localhost:3001",
+//     "https://lexxusmoon.vercel.app",
+//     "https://lexxusmoon-admin.vercel.app",
+//   ],
+//   credentials: true,
+// }));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
